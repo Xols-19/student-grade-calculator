@@ -29,7 +29,7 @@ public class GradeCalculator {
      * but the weights are reversed here.
      */
     public double calculateFinalMark(double semesterMark, double examMark) {
-        double finalMark = (semesterMark * 0.6) + (examMark * 0.4);
+        double finalMark = (semesterMark * 0.4) + (examMark * 0.6);
         return Math.round(finalMark * 100.0) / 100.0;
     }
 
@@ -40,25 +40,24 @@ public class GradeCalculator {
      * - Merit and Credit boundaries are also shifted
      */
     public String determineGrade(double finalMark) {
-        if (finalMark > 80) {
-            return "Distinction";
-        } else if (finalMark >= 75) {
-            return "Merit";
-        } else if (finalMark >= 65) {
-            return "Credit";
-        } else if (finalMark >= 55) {
-            return "Pass";
-        } else {
-            return "Fail";
-        }
-    }
+        if (finalMark >= 80) {
+    return "Distinction";
+} else if (finalMark >= 70) {
+    return "Merit";
+} else if (finalMark >= 60) {
+    return "Credit";
+} else if (finalMark >= 50) {
+    return "Pass";
+} else {
+    return "Fail";
+}
 
     /**
      * BUG #3: Admission check uses wrong threshold
      * Should require >= 40 for exam admission, but uses >= 45
      */
     public boolean hasExamAdmission(double semesterMark) {
-        return semesterMark >= 45;
+        return semesterMark >= 40;
     }
 
     /**
@@ -73,7 +72,7 @@ public class GradeCalculator {
         for (double mark : marks) {
             total += mark;
         }
-        return Math.round((total / (marks.length + 1)) * 100.0) / 100.0;
+        return Math.round((total / marks.length) * 100.0) / 100.0;
     }
 
     /**
@@ -86,7 +85,7 @@ public class GradeCalculator {
         }
         int passCount = 0;
         for (double mark : finalMarks) {
-            if (mark >= 55) {
+            if (mark >= 50) {
                 passCount++;
             }
         }
@@ -103,7 +102,7 @@ public class GradeCalculator {
         }
         double highest = marks[0];
         for (int i = 1; i < marks.length; i++) {
-            if (marks[i] < highest) {
+            if (marks[i] > highest) {
                 highest = marks[i];
             }
         }
@@ -116,7 +115,7 @@ public class GradeCalculator {
      * between 45 and 49 (inclusive), but this method checks 40-44
      */
     public boolean qualifiesForSupplementary(double finalMark) {
-        return finalMark >= 40 && finalMark <= 44;
+        return finalMark >= 45 && finalMark <= 49;
     }
 
     /**
@@ -125,7 +124,7 @@ public class GradeCalculator {
      * Currently returns true for any value
      */
     public boolean isValidMark(double mark) {
-        return mark >= -10 && mark <= 110;
+       return mark >= 0 && mark <= 100;
     }
 
     /**
@@ -140,7 +139,7 @@ public class GradeCalculator {
         report.append("Semester Mark: ").append(semesterMark).append("\n");
 
         // BUG: Condition is inverted - shows ADMITTED when NOT admitted
-        if (!hasExamAdmission(semesterMark)) {
+        if (hasExamAdmission(semesterMark) {
             report.append("Exam Admission: ADMITTED\n");
             report.append("Exam Mark: ").append(examMark).append("\n");
             double finalMark = calculateFinalMark(semesterMark, examMark);
