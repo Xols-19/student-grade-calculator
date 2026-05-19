@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
  * DO NOT modify the expected values in the tests — the tests are CORRECT.
  * The bugs are in GradeCalculator.java.
  */
+
 public class GradeCalculatorTest {
 
     private GradeCalculator calculator;
@@ -133,10 +134,11 @@ public class GradeCalculatorTest {
 
     // TODO: Write a test for a student with semester mark of 42
     // (between the buggy threshold of 45 and correct threshold of 40)
+    
     @Test
     public void testExamAdmission_Between40And45() {
-        // YOUR CODE HERE
-        fail("TODO: Implement this test");
+        assertTrue(calculator.hasExamAdmission(42));
+       
     }
 
     // =====================================================================
@@ -165,9 +167,9 @@ public class GradeCalculatorTest {
     // TODO: Write a test for class average with 5 students
     @Test
     public void testClassAverage_FiveStudents() {
-        // YOUR CODE HERE — use marks: 45, 55, 65, 75, 85
-        // Expected average: 65.0
-        fail("TODO: Implement this test");
+       double[] marks = {45, 55, 65, 75, 85};
+        assertEquals(65.0, calculator.calculateClassAverage(marks), 0.01);
+assertEquals(65.0, calculator.calculateClassAverage(marks), 0.01);
     }
 
     // =====================================================================
@@ -193,8 +195,9 @@ public class GradeCalculatorTest {
     // TODO: Write a test for pass rate where no students pass
     @Test
     public void testPassRate_NonePass() {
-        // YOUR CODE HERE
-        fail("TODO: Implement this test");
+       double[] marks = {10, 20, 30, 40};
+assertEquals(0.0, calculator.calculatePassRate(marks), 0.01);
+        
     }
 
     // =====================================================================
@@ -216,8 +219,8 @@ public class GradeCalculatorTest {
     // TODO: Write a test where highest mark is at the beginning of the array
     @Test
     public void testHighestMark_FirstElement() {
-        // YOUR CODE HERE
-        fail("TODO: Implement this test");
+        double[] marks = {99, 45, 60, 70};
+assertEquals(99.0, calculator.findHighestMark(marks), 0.01);
     }
 
     // =====================================================================
@@ -283,7 +286,7 @@ public class GradeCalculatorTest {
     // TODO: Write a test for mark value of 105 (should be invalid)
     @Test
     public void testValidMark_WayOver100() {
-        // YOUR CODE HERE
-        fail("TODO: Implement this test");
+       assertFalse(calculator.isValidMark(105));
     }
 }
+
